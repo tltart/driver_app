@@ -1,0 +1,11 @@
+.wrap{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background: #E5E5E5;
+}
+.wrap__statistic{
+    display: flex;
+    padding-top: 60px;
+    padding-left: 50px;
+}
