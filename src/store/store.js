@@ -1,10 +1,12 @@
-
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-import UserReducer from './driverReducer';
+import DriverReducer from './driverReducer';
+import UserReducer from './userReducer';
+
 import ThunkMiddleware from 'redux-thunk';
 
 let reducers = combineReducers({
-    user: UserReducer,
+    users: UserReducer,
+    drivers: DriverReducer,
 
 });
 
