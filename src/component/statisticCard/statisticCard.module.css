@@ -1,3 +1,8 @@
+:root{
+    --padding-left-text: 20px;
+    /* --width-plus-minus: calc(var(--width-counter)/4); */
+}
+
 .wrap {
     display: inline-block;
     width: 420px;
@@ -8,7 +13,31 @@
 }
 
 .wrap img{
+    display: inline-block;
     float: right;
     padding-right: 21px;
     padding-top: 24px;
+}
+
+.wrap__users{
+    /* border: 2px solid green; */
+    display: inline-block;
+}
+
+
+.wrap__users h1{
+    /* border: 2px solid green; */
+    padding-left: var(--padding-left-text);
+    padding-top: 15px;
+}
+
+#active__users h2{
+    padding-left: 10px;
+    color: #2A32FD;
+    font-size: 24px;
+}
+#disactive__users h2{
+    padding-left: 10px;
+    font-size: 24px;
+    color: #DF4733;
 }

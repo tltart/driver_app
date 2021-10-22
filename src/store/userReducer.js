@@ -1,5 +1,5 @@
 const INIT_USERS = "INIT_USERS"
-
+const COUNT_USERS = "COUNT_USERS"
 
 
 let initialState = {
@@ -155,12 +155,10 @@ let initialState = {
             rating: 2.9999876022338867,
             ridesCount: 6,
             workAddress: "",
-            workLatitude: 0,    
+            workLatitude: 0,
             workLongitude: 0
         }
-    ],
-    totalCountUsers: 0,
-    activeUsers: 0
+    ]
 }
 
 
@@ -176,6 +174,7 @@ const userReducer = (state = initialState, action) => {
     }
 
 }
+
 
 // export const GoodActive = (item) => ({ type: ACTIVE, payload: item })
 
