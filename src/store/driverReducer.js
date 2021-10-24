@@ -31,10 +31,11 @@ let initialState = {
             rating: 5,
             ridesNum: 0,
             taxiLicense: "http://77.223.97.105:1337/api/driver/image/image-778754750.jpg",
-            taxiLicenseText: ""
+            taxiLicenseText: "",
+            ide: 1
         },
         {
-            activeStatus: 1, adminNote: "sssssss", avatar: "C:/Users/sokol/Desktop/driver_app/driver_app/public/images/user/Ellipse18.png", bankAccount: "", bankAddress: "",
+            activeStatus: 1, adminNote: "sssssss", avatar: "images/user/Ellipse18.png", bankAccount: "", bankAddress: "",
             bankName: "vtb",
             bankNumber: "",
             cancellationNum: 4,
@@ -58,12 +59,13 @@ let initialState = {
             rating: 5,
             ridesNum: 5,
             taxiLicense: "http://77.223.97.105:1337/api/driver/image/image-300427163.jpg",
-            taxiLicenseText: ""
+            taxiLicenseText: "",
+            ide: 2
         },
         {
             activeStatus: 1,
             adminNote: "",
-            avatar: "C:/Users/sokol/Desktop/driver_app/driver_app/public/images/user/Ellipse18.png",
+            avatar: "images/user/Ellipse18.png",
             bankAccount: "",
             bankAddress: "",
             bankName: "",
@@ -89,12 +91,13 @@ let initialState = {
             rating: 4.666666666666667,
             ridesNum: 7,
             taxiLicense: "http://77.223.97.105:1337/api/driver/image/image-100741857.jpg",
-            taxiLicenseText: ""
+            taxiLicenseText: "",
+            ide: 3
         },
         {
             activeStatus: 1,
             adminNote: "jkhjklhj k'",
-            avatar: "C:/Users/sokol/Desktop/driver_app/driver_app/public/images/user/Ellipse18.png",
+            avatar: "images/user/Ellipse18.png",
             bankAccount: "44",
             bankAddress: "ףלחלךח",
             bankName: "יעליךע",
@@ -120,12 +123,13 @@ let initialState = {
             rating: 5,
             ridesNum: 28,
             taxiLicense: "http://77.223.97.105:1337/api/driver/image/image-034209823.jpg",
-            taxiLicenseText: ""
+            taxiLicenseText: "",
+            ide: 4
         },
         {
             activeStatus: 1,
             adminNote: "sldalsdfdfdfgdfghffdgjhkglkhjm",
-            avatar: "C:/Users/sokol/Desktop/driver_app/driver_app/public/images/user/Ellipse18.png",
+            avatar: "images/user/Ellipse18.png",
             bankAccount: "",
             bankAddress: "",
             bankName: "",
@@ -151,12 +155,13 @@ let initialState = {
             rating: 5,
             ridesNum: 18,
             taxiLicense: "http://77.223.97.105:1337/api/driver/image/image-479208395.jpg",
-            taxiLicenseText: ""
+            taxiLicenseText: "",
+            ide: 5
         },
         {
             activeStatus: 1,
             adminNote: "sldalsdfdfdfgdfghffdgjhkglkhjm",
-            avatar: "C:/Users/sokol/Desktop/driver_app/driver_app/public/images/user/Ellipse18.png",
+            avatar: "images/user/Ellipse18.png",
             bankAccount: "",
             bankAddress: "",
             bankName: "",
@@ -179,15 +184,16 @@ let initialState = {
             onDuty: 1,
             passport: "",
             phoneNumber: "+79880126375",
-            rating: 5,
+            rating: 3.64,
             ridesNum: 18,
             taxiLicense: "http://77.223.97.105:1337/api/driver/image/image-479208395.jpg",
-            taxiLicenseText: ""
+            taxiLicenseText: "",
+            ide: 6
         },
         {
             activeStatus: 1,
             adminNote: "sldalsdfdfdfgdfghffdgjhkglkhjm",
-            avatar: "C:/Users/sokol/Desktop/driver_app/driver_app/public/images/user/Ellipse18.png",
+            avatar: "images/user/Ellipse18.png",
             bankAccount: "",
             bankAddress: "",
             bankName: "",
@@ -213,12 +219,13 @@ let initialState = {
             rating: 5,
             ridesNum: 18,
             taxiLicense: "http://77.223.97.105:1337/api/driver/image/image-479208395.jpg",
-            taxiLicenseText: ""
+            taxiLicenseText: "",
+            ide: 7
         },
         {
             activeStatus: 0,
             adminNote: "sldalsdfdfdfgdfghffdgjhkglkhjm",
-            avatar: "C:/Users/sokol/Desktop/driver_app/driver_app/public/images/user/Ellipse18.png",
+            avatar: "images/user/Ellipse18.png",
             bankAccount: "",
             bankAddress: "",
             bankName: "",
@@ -244,7 +251,8 @@ let initialState = {
             rating: 3,
             ridesNum: 18,
             taxiLicense: "http://77.223.97.105:1337/api/driver/image/image-479208395.jpg",
-            taxiLicenseText: ""
+            taxiLicenseText: "",
+            ide: 8
         }
     ],
 

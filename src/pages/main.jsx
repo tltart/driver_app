@@ -45,7 +45,7 @@ const MainPage = ({ users, drivers }) => {
                     <DriversSheet drivers={drivers}/>
                 </div>
                 <div className={c.wrap__driver__item}>
-                    <DriverCard driverId={drivers[0]}/>
+                    <DriverCard driverId={drivers[5]} />
                 </div>
             </div>
         </div>
