@@ -5,10 +5,10 @@ import c from './driversSheet.module.css'
 
 
 const DriversSheet = memo(({ drivers }) => {
-    console.log(drivers);
+    // console.log(drivers);
 
     const onSort = (field) => {
-        console.log(field);
+        // console.log(field);
     }
 
     return (

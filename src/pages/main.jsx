@@ -38,7 +38,7 @@ const MainPage = ({ users, drivers }) => {
                 <StatisticCard statusUser="Занятые" allUsers={bisyUsers} />
             </div>
             <div className={c.wrap__map}>
-                <MapComponent />
+                <MapComponent drivers={drivers}/>
             </div>
             <div className={c.footer__wrap}>
                 <div className={c.wrap__drivers__items}>

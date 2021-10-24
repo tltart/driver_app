@@ -3,7 +3,7 @@ import c from './driverCard.module.css'
 
 
 const DriverCard = ({ driverId }) => {
-    console.log(driverId);
+    // console.log(driverId);
     return (
         <div className={c.wrap__card}>
             <h2>Выбранный водитель</h2>
