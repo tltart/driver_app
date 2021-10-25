@@ -8,7 +8,7 @@ import ThunkMiddleware from 'redux-thunk';
 let reducers = combineReducers({
     users: UserReducer,
     drivers: DriverReducer,
-    coordinats : MapReducer
+    coordinates : MapReducer
 
 });
 

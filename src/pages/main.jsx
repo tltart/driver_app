@@ -7,16 +7,20 @@ import { getUsersSelector } from '../store/selectors/usersSelector';
 import { getDrivers } from '../store/selectors/driversSelector';
 import DriversSheet from "../component/driversSheet/driversSheet";
 import DriverCard from "../component/driverCard/driverCard";
+import {getCoordinates} from '../store/selectors/coordinatsSelector';
+import {SetCoordinates} from '../store/mapReducer';
 
 
 const mapStateToProps = (state) => {
     return {
         users: getUsersSelector(state),
-        drivers: getDrivers(state)
+        drivers: getDrivers(state),
+        coordinates: getCoordinates(state)
     }
 }
 
-const MainPage = ({ users, drivers }) => {
+const MainPage = ({ users, drivers, SetCoordinates, coordinates }) => {
+
 
     let [activeUsers, setActiveUsers] = useState();
     let [allUsers, setAllUsers] = useState();
@@ -34,12 +38,12 @@ const MainPage = ({ users, drivers }) => {
     return (
         <div className={c.wrap}>
             <div className={c.wrap__statistic}>
-                <StatisticCard activeUsers={activeUsers} allUsers={allUsers} statusUser="Активные ползователи" />
+                <StatisticCard activeUsers={activeUsers} allUsers={allUsers} statusUser="Активные пользователи" />
                 <StatisticCard statusUser="Свободные" allUsers={freeUsers}/>
                 <StatisticCard statusUser="Занятые" allUsers={bisyUsers} />
             </div>
             <div className={c.wrap__map}>
-                <MapComponent drivers={drivers}/>
+                <MapComponent drivers={drivers} coordinates={coordinates} setCoordinates={SetCoordinates}/>
             </div>
             <div className={c.footer__wrap}>
                 <div className={c.wrap__drivers__items}>
@@ -53,4 +57,4 @@ const MainPage = ({ users, drivers }) => {
     )
 }
 
-export default connect(mapStateToProps)(MainPage);
+export default connect(mapStateToProps, {SetCoordinates})(MainPage);

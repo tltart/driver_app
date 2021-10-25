@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import LocationMarker from '../locationMarker';
 import UseSupercluster from 'use-supercluster'
@@ -7,7 +7,8 @@ import c from './googleMap.module.css'
 
 const Marker = ({ children }) => children;
 
-const GoogleMap = ({ drivers }) => {
+const GoogleMap = ({ drivers, coordinates }) => {
+
     const mapRef = useRef();
     const [zoom, setZoom] = useState(10);
     const [bounds, setBounds] = useState(null);
@@ -30,7 +31,8 @@ const GoogleMap = ({ drivers }) => {
         "geometry": { "type": "Point", "coordinates": [item.currentLocationLongitude, item.currentLocationLatitude] }
     }))
 
-
+    // console.log(coordinates);
+    
     const { clusters, supercluster } = UseSupercluster({
         points,
         bounds,
@@ -38,7 +40,14 @@ const GoogleMap = ({ drivers }) => {
         options: { radius: 75, maxZoom: 20 }
     })
 
-    // console.log(clusters[0].properties.point_count);
+    useEffect(()=>{
+        if (Object.values(coordinates).length){
+            mapRef.current.panTo({lat: coordinates.lat, lng: coordinates.lng});
+            mapRef.current.setZoom(10);
+        }
+    },[coordinates])
+
+
 
     return (
         <GoogleMapReact

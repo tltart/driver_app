@@ -7,7 +7,7 @@ const StatisticCard = ({ activeUsers, allUsers, statusUser }) => {
         <div className={c.wrap}>
             <div className={c.wrap__users}>
                 <h2>{statusUser}</h2>
-                {statusUser == 'Активные ползователи' ?
+                {statusUser == 'Активные пользователи' ?
 
                     <h1>{activeUsers}/{allUsers}</h1>
                     :

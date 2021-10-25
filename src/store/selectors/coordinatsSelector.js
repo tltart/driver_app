@@ -1,3 +1,3 @@
-export const getCoordinats = (state) => {
-    return state.coordinats.coordinats
+export const getCoordinates = (state) => {
+    return state.coordinates.coordinates
 }
