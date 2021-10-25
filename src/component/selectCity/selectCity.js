@@ -4,16 +4,15 @@ import c from './selectCity.module.css'
 
 
 
-const options = [{ value: "Биберево", label: "Биберево" }, { value: "Аризона", label: "Аризона" }, { value: "Самара", label: "Самара" },
-{ value: "Пекин", label: "Пекин" }, { value: "Канберра", label: "Канберра" }]
+// const options = [{ value: "Биберево", label: "Биберево" }, { value: "Аризона", label: "Аризона" }, { value: "Самара", label: "Самара" },
+// { value: "Пекин", label: "Пекин" }, { value: "Канберра", label: "Канберра" }]
 
 
-
-const city = "Жуковский"
-
-const SelectCity = () => {
+const SelectCity = ({options}) => {
 
     let [city, setCity] = useState({ value: "Биберево", label: "Биберево" });
+
+    console.log(options);
 
     const handleChange = (e) => {
         setCity(e);

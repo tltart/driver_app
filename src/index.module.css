@@ -9,7 +9,7 @@
     background-color: #E5E5E5;
 }
 
-h1, h2, h3, h4, h5, h6, P{
+h1, h2, h3, h4, h5, h6, p, input{
     font-family: 'Roboto-Regular';
     color: #6C757D;
 }

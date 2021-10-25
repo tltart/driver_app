@@ -12,6 +12,7 @@
 }
 .wrap__head{
     /* border: 2px solid red; */
+    position: relative;
     display: flex;
     justify-content: space-between;
     /* align-items: flex-end; */
@@ -26,6 +27,7 @@ h2 {
 }
 
 .map__container{
+    /* position: absolute; */
     width: 1260px;
     margin-left: 20px;
     margin: 0 auto;

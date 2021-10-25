@@ -5,7 +5,6 @@ import UseSupercluster from 'use-supercluster'
 import c from './googleMap.module.css'
 
 
-
 const Marker = ({ children }) => children;
 
 const GoogleMap = ({ drivers }) => {
