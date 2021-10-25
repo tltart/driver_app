@@ -1,9 +1,10 @@
 import React from 'react';
+import c from './locationMarker.module.css'
 
 const LocationMarker = ({ phone }) => {
     return (
-        <div style={{ width: '40px', height: '20px', backgroundColor: 'blue', borderRadius: '8px' }}>
-            {phone}
+        <div className={c.wrap__marker}>
+            <h4>{phone}</h4>
         </div>
     );
 }

@@ -6,6 +6,8 @@ import c from './googleMap.module.css'
 
 
 
+const Marker = ({ children }) => children;
+
 const GoogleMap = ({ drivers }) => {
     const mapRef = useRef();
     const [zoom, setZoom] = useState(10);
@@ -30,14 +32,14 @@ const GoogleMap = ({ drivers }) => {
     }))
 
 
-    const { clusters } = UseSupercluster({
+    const { clusters, supercluster } = UseSupercluster({
         points,
         bounds,
         zoom,
         options: { radius: 75, maxZoom: 20 }
     })
 
-    console.log(clusters);
+    // console.log(clusters[0].properties.point_count);
 
     return (
         <GoogleMapReact
@@ -60,26 +62,37 @@ const GoogleMap = ({ drivers }) => {
 
             {clusters.map((cluster, index) => {
                 const [longitude, latitude] = cluster.geometry.coordinates;
-                const { cluster: isCluster, pont_count: pointCount } = cluster.properties
-                //Used for incon type
-                // const clusterId = cluster.properties.eventType;
+                const { cluster: isCluster, point_count: pointCount } = cluster.properties
                 if (isCluster) {
-                    let changeSize = Math.round(pointCount / points.length * 100);
-                    //Can't exceed 40px
-                    let addSize = Math.min(changeSize * 10, 40);
+                    // console.log(cluster.properties);
                     return (
-                        <section lat={latitude, longitude} key={cluster.id}>
-                            <div className={c.cluster__marker} style={{
-                                width: addSize + changeSize + "px",
-                                height: addSize + changeSize + "px"
-                            }}>
+                        <Marker
+                            key={`cluster-${cluster.id}`}
+                            lat={latitude}
+                            lng={longitude}
+                        >
+                            <div
+                                className={c.cluster__marker}
+                                style={{
+                                    width: `${10 + (pointCount / points.length) * 40}px`,
+                                    height: `${10 + (pointCount / points.length) * 40}px`
+                                }}
+                                onClick={() => {
+                                    const expansionZoom = Math.min(
+                                        supercluster.getClusterExpansionZoom(cluster.id),
+                                        20
+                                    );
+                                    mapRef.current.setZoom(expansionZoom);
+                                    mapRef.current.panTo({ lat: latitude, lng: longitude });
+                                }}
+                            >
                                 {pointCount}
                             </div>
-                        </section>
-                    )
+                        </Marker>
+                    );
                 }
-                return(
-                    <LocationMarker key={index} phone={cluster.properties.eventTitle} lng={longitude} lat={latitude}/>
+                return (
+                    <LocationMarker key={index} phone={cluster.properties.eventTitle} lng={longitude} lat={latitude} />
                 )
             })}
 

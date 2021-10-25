@@ -1,0 +1,16 @@
+.wrap__marker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 30px;
+    background: #2A32FD;
+    border-radius: 5px;
+}
+
+.wrap__marker h4 {
+    font-size: 12px;
+    /* padding: 2px 5px; */
+    color: white;
+    margin: 2px 2px;
+}
