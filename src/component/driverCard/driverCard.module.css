@@ -1,16 +1,59 @@
-.wrap__card {}
+@import '../../fonts.css';
 
-.info__driver {}
-
-.title__driver {
+.wrap__card {
     /* border: 2px solid green; */
-    position: relative;
+    width: 100%;
+    /* position: relative; */
     display: flex;
-    align-items: center;
+    flex-direction: column;
+}
+.wrap__head__info{
+    /* border: 2px solid brown; */
+    display: flex;
     margin-top: 20px;
+}
+.avatar__driver {
+    /* border: 2px solid cyan; */
+    position: relative;
+    display: block;
+    width: min-content;
+    align-items: center;
+    
     margin-left: 21px;
 }
+.avatar__driver img{
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    overflow: hidden;
+    /* position: absolute; */
+    top: 20px;
 
+}
+.raiting {
+    position: absolute;
+    display: flex;
+    width: 56px;
+    height: 19px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    background-color: #08AA04;
+    font-family: 'Roboto-Regular';
+    font-size: 12px;
+    color: white;
+    left: 50%;
+    top: 75px;
+    transform: translate(-50%, -50%);
+}
+.title__driver{
+    /* border: 2px solid fuchsia; */
+
+
+}
+.info__driver {
+    /* border: 2px solid goldenrod; */
+}
 .name__status {
     /* border: 2px solid yellowgreen; */
     display: flex;
@@ -26,28 +69,7 @@
     color: #DF4733;
 }
 
-.title__driver img {
-    width: 80px;
-    height: 80px;
-    border-radius: 40px;
-    overflow: hidden;
-}
 
-.raiting {
-    position: absolute;
-    display: flex;
-    width: 56px;
-    height: 19px;
-    border-radius: 5px;
-    align-items: flex-start;
-    justify-content: center;
-    background-color: #08AA04;
-    font-size: 12px;
-    color: white;
-    left: 40px;
-    top: 80px;
-    transform: translate(-50%, -50%);
-}
 
 .raiting.danger {
     background-color: #A00202;
@@ -59,10 +81,15 @@
 
 .title__driver h3 {
     font-size: 18px;
+    padding-left: 10px;
+    padding-top: 16px;
 }
 
 .title__driver h4 {
     font-size: 14px;
+    padding-left: 10px;
+    padding-top: 6px;
+
 }
 
 .info__driver {
@@ -76,4 +103,8 @@
     color: #9BA3AB;
     padding-top: 10px;
     padding-left: 21px;
+}
+.info__driver h4:nth-last-child(1) {
+    /* border: 2px solid firebrick; */
+    margin-bottom: 15px;
 }

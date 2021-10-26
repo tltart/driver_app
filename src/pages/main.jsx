@@ -9,17 +9,19 @@ import DriversSheet from "../component/driversSheet/driversSheet";
 import DriverCard from "../component/driverCard/driverCard";
 import {getCoordinates} from '../store/selectors/coordinatsSelector';
 import {SetCoordinates} from '../store/mapReducer';
+import { setDriverList } from "../store/driverReducer";
 
 
 const mapStateToProps = (state) => {
     return {
         users: getUsersSelector(state),
         drivers: getDrivers(state),
+        listDrivers: state.drivers.listDrivers,
         coordinates: getCoordinates(state)
     }
 }
 
-const MainPage = ({ users, drivers, SetCoordinates, coordinates }) => {
+const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, setDriverList }) => {
 
 
     let [activeUsers, setActiveUsers] = useState();
@@ -47,7 +49,7 @@ const MainPage = ({ users, drivers, SetCoordinates, coordinates }) => {
             </div>
             <div className={c.footer__wrap}>
                 <div className={c.wrap__drivers__items}>
-                    <DriversSheet drivers={drivers}/>
+                    <DriversSheet drivers={drivers} listDrivers={listDrivers} setDriverList={setDriverList}/>
                 </div>
                 <div className={c.wrap__driver__item}>
                     <DriverCard driverId={drivers[5]} />
@@ -57,4 +59,4 @@ const MainPage = ({ users, drivers, SetCoordinates, coordinates }) => {
     )
 }
 
-export default connect(mapStateToProps, {SetCoordinates})(MainPage);
+export default connect(mapStateToProps, {SetCoordinates, setDriverList})(MainPage);

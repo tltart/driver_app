@@ -27,7 +27,7 @@ input {
 	border-radius: 8px;
     
 }
-img{
+.wrap__input img{
     position: absolute;
     left: 5px;
     top: 50%;

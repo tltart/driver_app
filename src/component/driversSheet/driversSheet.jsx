@@ -4,16 +4,59 @@ import c from './driversSheet.module.css'
 
 
 
-const DriversSheet = memo(({ drivers }) => {
-
+const DriversSheet = memo(({ drivers, listDrivers, setDriverList }) => {
 
     const rootRef = useRef();
     const [start, setStart] = useState(0);
-    const [listDrivers, setListDrivers] = useState([]);
+    const [nameSort, setNameSort] = useState(true);
+    const [statusSort, setStatusSort] = useState(true);
+    const [numberSort, setNumberSort] = useState(true);
+
+
 
     const onSort = (field) => {
         if (field) {
-            console.log(field.target);
+            if (field.target.outerText === "Имя") {
+                listDrivers.sort((prev, next) => {
+                    if (nameSort) {
+                        if (prev.fullname < next.fullname) return -1;
+                        if (prev.fullname < next.fullname) return 1;
+                    }
+                    else {
+                        if (prev.fullname > next.fullname) return -1;
+                        if (prev.fullname > next.fullname) return 1;
+                    }
+                });
+                setNameSort(!nameSort)
+            }
+            if (field.target.outerText === "Статус") {
+                listDrivers.sort((prev, next) => {
+                    if (statusSort) {
+                        if (prev.status < next.status) return -1;
+                        if (prev.status < next.status) return 1;
+                    }
+                    else {
+                        if (prev.status > next.status) return -1;
+                        if (prev.status > next.status) return 1;
+                    }
+                });
+                setStatusSort(!statusSort)
+            }
+            if (field.target.outerText === "Номер") {
+                listDrivers.sort((prev, next) => {
+                    if (numberSort) {
+                        if (prev.id < next.id) return -1;
+                        if (prev.id < next.id) return 1;
+                    }
+                    else {
+                        if (prev.id > next.id) return -1;
+                        if (prev.id > next.id) return 1;
+                    }
+                });
+                setNumberSort(!numberSort);
+            }
+            setDriverList(listDrivers);
+            console.log(listDrivers);
         }
         return
 
@@ -34,18 +77,23 @@ const DriversSheet = memo(({ drivers }) => {
         setStart(Math.floor(e.target.scrollTop / rowHeight))
     }
 
-    const driversSort = useMemo(() => {
-        let zz = drivers.map(item => ({
-            fullname: item.fullName,
-            status: item.activeStatus
-        }))
-        setListDrivers(zz)
-    }, [drivers])
-
 
     useEffect(() => {
-        driversSort();
-    }, [drivers])
+        let zz = [];
+        const driversToList = () => {
+            if (Object.keys(drivers).length) {
+                zz = drivers.map(item => ({
+                    fullname: item.fullName,
+                    status: item.activeStatus,
+                    id: item.ide
+                }))
+                return zz;
+            }
+            return
+        }
+        driversToList();
+        setDriverList(zz)
+    }, [])
 
     useEffect(() => {
         rootRef.current.addEventListener('scroll', onScroll);
@@ -66,8 +114,8 @@ const DriversSheet = memo(({ drivers }) => {
                     <thead>
                         <tr>
                             <th onClick={onSort} >Номер</th>
-                            <th onClick={onSort(null, 'id')} >Имя</th>
-                            <th onClick={onSort(null, 'id')} >Статус</th>
+                            <th onClick={onSort} >Имя</th>
+                            <th onClick={onSort} >Статус</th>
                         </tr>
                     </thead>
                     <div className={c.wrap__table} style={{
@@ -77,10 +125,10 @@ const DriversSheet = memo(({ drivers }) => {
                         <div style={{ height: getTopHeight() }} />
                         <tbody>
                             {listDrivers.slice(start, start + visibleRows).map((item, index) => (
-                                <tr key={start + index}>
-                                    <td>{start + index}</td>
+                                <tr key={start + index} onClick={}>
+                                    <td>{item.id < 10 ? '0'+item.id : item.id}</td>
                                     <td>{item.fullname}</td>
-                                    <td id={!item.status ? `${c.status__bisy}` : `${c.status__free}`}>{!item.activeStatus ? "Занят" : "Свободен"}</td>
+                                    <td id={!item.status ? `${c.status__bisy}` : `${c.status__free}`}>{!item.status ? "Занят" : "Свободен"}</td>
                                 </tr>
                             ))}
                         </tbody>
