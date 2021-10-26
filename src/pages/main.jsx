@@ -43,7 +43,7 @@ const MainPage = ({ users, drivers, SetCoordinates, coordinates }) => {
                 <StatisticCard statusUser="Занятые" allUsers={bisyUsers} />
             </div>
             <div className={c.wrap__map}>
-                <MapComponent drivers={drivers} coordinates={coordinates} setCoordinates={SetCoordinates}/>
+                {/* <MapComponent drivers={drivers} coordinates={coordinates} setCoordinates={SetCoordinates}/> */}
             </div>
             <div className={c.footer__wrap}>
                 <div className={c.wrap__drivers__items}>
