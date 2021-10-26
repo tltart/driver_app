@@ -4,7 +4,7 @@ import c from './driversSheet.module.css'
 
 
 
-const DriversSheet = memo(({ drivers, listDrivers, setDriverList }) => {
+const DriversSheet = memo(({ drivers, listDrivers, setDriverList, selectDriverAction }) => {
 
     const rootRef = useRef();
     const [start, setStart] = useState(0);
@@ -12,7 +12,9 @@ const DriversSheet = memo(({ drivers, listDrivers, setDriverList }) => {
     const [statusSort, setStatusSort] = useState(true);
     const [numberSort, setNumberSort] = useState(true);
 
-
+    const clickHandler = (e) => {
+        selectDriverAction(e);
+    }
 
     const onSort = (field) => {
         if (field) {
@@ -85,7 +87,8 @@ const DriversSheet = memo(({ drivers, listDrivers, setDriverList }) => {
                 zz = drivers.map(item => ({
                     fullname: item.fullName,
                     status: item.activeStatus,
-                    id: item.ide
+                    id: item.ide,
+                    driverId: item.driverID
                 }))
                 return zz;
             }
@@ -125,8 +128,8 @@ const DriversSheet = memo(({ drivers, listDrivers, setDriverList }) => {
                         <div style={{ height: getTopHeight() }} />
                         <tbody>
                             {listDrivers.slice(start, start + visibleRows).map((item, index) => (
-                                <tr key={start + index} onClick={}>
-                                    <td>{item.id < 10 ? '0'+item.id : item.id}</td>
+                                <tr key={item.driverId} onClick={()=>{clickHandler(item.driverId)}}>
+                                    <td>{item.id < 10 ? '0' + item.id : item.id}</td>
                                     <td>{item.fullname}</td>
                                     <td id={!item.status ? `${c.status__bisy}` : `${c.status__free}`}>{!item.status ? "Занят" : "Свободен"}</td>
                                 </tr>

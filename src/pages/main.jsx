@@ -7,9 +7,9 @@ import { getUsersSelector } from '../store/selectors/usersSelector';
 import { getDrivers } from '../store/selectors/driversSelector';
 import DriversSheet from "../component/driversSheet/driversSheet";
 import DriverCard from "../component/driverCard/driverCard";
-import {getCoordinates} from '../store/selectors/coordinatsSelector';
-import {SetCoordinates} from '../store/mapReducer';
-import { setDriverList } from "../store/driverReducer";
+import { getCoordinates } from '../store/selectors/coordinatsSelector';
+import { SetCoordinates } from '../store/mapReducer';
+import { setDriverList, selectDriverAction } from "../store/driverReducer";
 
 
 const mapStateToProps = (state) => {
@@ -17,11 +17,12 @@ const mapStateToProps = (state) => {
         users: getUsersSelector(state),
         drivers: getDrivers(state),
         listDrivers: state.drivers.listDrivers,
-        coordinates: getCoordinates(state)
+        coordinates: getCoordinates(state),
+        selectDriver: state.drivers.selectDriver
     }
 }
 
-const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, setDriverList }) => {
+const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, setDriverList, selectDriver, selectDriverAction }) => {
 
 
     let [activeUsers, setActiveUsers] = useState();
@@ -33,15 +34,15 @@ const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, se
     useEffect(() => {
         setActiveUsers(users.active.length);
         setAllUsers(users.allUsers);
-        setFreeUsers(users.allUsers/2);
-        setBisyUsers(users.allUsers/2);
+        setFreeUsers(users.allUsers / 2);
+        setBisyUsers(users.allUsers / 2);
     }, [])
 
     return (
         <div className={c.wrap}>
             <div className={c.wrap__statistic}>
                 <StatisticCard activeUsers={activeUsers} allUsers={allUsers} statusUser="Активные пользователи" />
-                <StatisticCard statusUser="Свободные" allUsers={freeUsers}/>
+                <StatisticCard statusUser="Свободные" allUsers={freeUsers} />
                 <StatisticCard statusUser="Занятые" allUsers={bisyUsers} />
             </div>
             <div className={c.wrap__map}>
@@ -49,7 +50,8 @@ const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, se
             </div>
             <div className={c.footer__wrap}>
                 <div className={c.wrap__drivers__items}>
-                    <DriversSheet drivers={drivers} listDrivers={listDrivers} setDriverList={setDriverList}/>
+                    <DriversSheet drivers={drivers} listDrivers={listDrivers}
+                        setDriverList={setDriverList} selectDriverAction={selectDriverAction} />
                 </div>
                 <div className={c.wrap__driver__item}>
                     <DriverCard driverId={drivers[5]} />
@@ -59,4 +61,4 @@ const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, se
     )
 }
 
-export default connect(mapStateToProps, {SetCoordinates, setDriverList})(MainPage);
+export default connect(mapStateToProps, { SetCoordinates, setDriverList, selectDriverAction })(MainPage);

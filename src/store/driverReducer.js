@@ -1,5 +1,6 @@
-const INIT_DRIVERS = "INIT_DRIVERS"
-const INIT_DRIVERS_LIST = "INIT_DRIVERS_LIST"
+const INIT_DRIVERS = "INIT_DRIVERS";
+const INIT_DRIVERS_LIST = "INIT_DRIVERS_LIST";
+const SELECT_DRIVER ="SELECT_DRIVER";
 
 
 let initialState = {
@@ -255,7 +256,8 @@ let initialState = {
             ide: 8
         }
     ],
-    listDrivers: []
+    listDrivers: [],
+    selectDriver: null
 
 }
 
@@ -268,6 +270,8 @@ const driverReducer = (state = initialState, action) => {
             return { ...state, drivers: [...state.drivers, ...action.payload] }
         case INIT_DRIVERS_LIST:
             return { ...state, listDrivers: [...action.payload] }
+        case SELECT_DRIVER:
+            return { ...state, selectDriver: action.payload}
 
         default:
             return state;
@@ -276,6 +280,7 @@ const driverReducer = (state = initialState, action) => {
 
 // export const GoodActive = (item) => ({ type: ACTIVE, payload: item })
 export const setDriverList = (item) => ({ type: INIT_DRIVERS_LIST, payload: item });
+export const selectDriverAction = (item) => ({ type: SELECT_DRIVER, payload: item });
 
 
 export default driverReducer;

@@ -72,7 +72,9 @@ td {
     font-family: 'Roboto-Regular';
     padding: 10px;
 }
-
+tr{
+    cursor: pointer;
+}
 tr:hover{
     background: #F1F3FA;
 }
