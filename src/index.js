@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-// import 'bootstrap/dist/css/bootstrap.min.css'
 import c from './index.module.css'
 
 
@@ -12,7 +11,6 @@ ReactDOM.render(
     <div className={c.main}>
       <App />
     </div>
-
   </React.StrictMode>,
   document.getElementById('root')
 );

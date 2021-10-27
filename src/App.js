@@ -5,7 +5,7 @@ import AppRoutes from './component/AppRoutes'
 
 
 function App() {
-  
+
   return (
     <BrowserRouter>
       <Provider store={store}>
@@ -17,5 +17,6 @@ function App() {
 
   );
 }
+
 
 export default App;
