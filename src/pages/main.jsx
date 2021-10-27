@@ -9,7 +9,7 @@ import DriversSheet from "../component/driversSheet/driversSheet";
 import DriverCard from "../component/driverCard/driverCard";
 import { getCoordinates } from '../store/selectors/coordinatsSelector';
 import { SetCoordinates } from '../store/mapReducer';
-import { setDriverList, selectDriverAction } from "../store/driverReducer";
+import { setDriverListSort, selectDriverAction, getDriversThunk } from "../store/driverReducer";
 
 
 const mapStateToProps = (state) => {
@@ -22,12 +22,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, setDriverList, selectDriver, selectDriverAction }) => {
+const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, setDriverListSort, selectDriver, selectDriverAction, getDriversThunk }) => {
 
 
     let [activeUsers, setActiveUsers] = useState();
     let [allUsers, setAllUsers] = useState();
-
     let [freeUsers, setFreeUsers] = useState();
     let [bisyUsers, setBisyUsers] = useState();
 
@@ -37,6 +36,13 @@ const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, se
         setFreeUsers(users.allUsers / 2);
         setBisyUsers(users.allUsers / 2);
     }, [])
+
+    // console.log(drivers);
+    // setTimeout(() => {
+    //     getDriversThunk();
+    // }, 5000);
+
+    console.log("RENDER MAIN");
 
     return (
         <div className={c.wrap}>
@@ -50,8 +56,7 @@ const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, se
             </div>
             <div className={c.footer__wrap}>
                 <div className={c.wrap__drivers__items}>
-                    <DriversSheet drivers={drivers} listDrivers={listDrivers}
-                        setDriverList={setDriverList} selectDriverAction={selectDriverAction} />
+                    <DriversSheet drivers={drivers} listDrivers={listDrivers} setDriverListSort={setDriverListSort} selectDriverAction={selectDriverAction}/>
                 </div>
                 <div className={c.wrap__driver__item}>
                     <DriverCard selectDriver={selectDriver} />
@@ -61,4 +66,4 @@ const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, se
     )
 }
 
-export default connect(mapStateToProps, { SetCoordinates, setDriverList, selectDriverAction })(MainPage);
+export default connect(mapStateToProps, { SetCoordinates, setDriverListSort, selectDriverAction, getDriversThunk })(MainPage);
