@@ -6,6 +6,7 @@
     height: 30px;
     background: #2A32FD;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .wrap__marker h4 {

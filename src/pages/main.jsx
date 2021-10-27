@@ -46,7 +46,7 @@ const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, se
                 <StatisticCard statusUser="Занятые" allUsers={bisyUsers} />
             </div>
             <div className={c.wrap__map}>
-                {/* <MapComponent drivers={drivers} coordinates={coordinates} setCoordinates={SetCoordinates}/> */}
+                <MapComponent drivers={drivers} coordinates={coordinates} setCoordinates={SetCoordinates} selectDriverAction={selectDriverAction}/>
             </div>
             <div className={c.footer__wrap}>
                 <div className={c.wrap__drivers__items}>
@@ -54,7 +54,7 @@ const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, se
                         setDriverList={setDriverList} selectDriverAction={selectDriverAction} />
                 </div>
                 <div className={c.wrap__driver__item}>
-                    <DriverCard driverId={drivers[5]} />
+                    <DriverCard selectDriver={selectDriver} />
                 </div>
             </div>
         </div>

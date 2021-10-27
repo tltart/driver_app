@@ -7,7 +7,7 @@ import c from './googleMap.module.css'
 
 const Marker = ({ children }) => children;
 
-const GoogleMap = ({ drivers, coordinates }) => {
+const GoogleMap = ({ drivers, coordinates, selectDriverAction }) => {
 
     const mapRef = useRef();
     const [zoom, setZoom] = useState(10);
@@ -21,12 +21,16 @@ const GoogleMap = ({ drivers, coordinates }) => {
         },
     };
 
+    const clickHandlerMarker = (driverId) => {
+        selectDriverAction(driverId);
+    }
 
     const points = drivers.map(item => ({
         "type": "Feature",
         "properties": {
             "cluster": false,
-            "eventTitle": item.fullName
+            "eventTitle": item.fullName,
+            "driverId": item.driverID
         },
         "geometry": { "type": "Point", "coordinates": [item.currentLocationLongitude, item.currentLocationLatitude] }
     }))
@@ -100,7 +104,8 @@ const GoogleMap = ({ drivers, coordinates }) => {
                     );
                 }
                 return (
-                    <LocationMarker key={index} phone={cluster.properties.eventTitle} lng={longitude} lat={latitude} />
+                    <LocationMarker key={index} phone={cluster.properties.eventTitle} lng={longitude} lat={latitude} 
+                    selectDriverAction={()=>{clickHandlerMarker(cluster.properties.driverId)}}/>
                 )
             })}
 

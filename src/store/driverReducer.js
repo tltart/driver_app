@@ -271,7 +271,7 @@ const driverReducer = (state = initialState, action) => {
         case INIT_DRIVERS_LIST:
             return { ...state, listDrivers: [...action.payload] }
         case SELECT_DRIVER:
-            return { ...state, selectDriver: action.payload}
+            return { ...state, selectDriver: [...state.drivers.filter(item => item.driverID == action.payload)][0]}
 
         default:
             return state;

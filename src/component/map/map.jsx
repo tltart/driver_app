@@ -3,7 +3,7 @@ import c from './map.module.css';
 import GoogleMap from "./googleMap/googleMap";
 import MapAuto from "./mapAuto/mapAuto";
 
-const MapComponent = ({drivers, coordinates, setCoordinates}) => {
+const MapComponent = ({drivers, coordinates, setCoordinates, selectDriverAction}) => {
 
     
     return (
@@ -13,7 +13,7 @@ const MapComponent = ({drivers, coordinates, setCoordinates}) => {
                 <MapAuto setCoordinates={setCoordinates}/>
             </div>
             <div className={c.map__container}>
-                <GoogleMap drivers={drivers} coordinates={coordinates}/>
+                <GoogleMap drivers={drivers} coordinates={coordinates} selectDriverAction={selectDriverAction}/>
             </div>
         </div>
     )
