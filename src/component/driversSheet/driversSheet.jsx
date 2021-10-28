@@ -1,16 +1,27 @@
-import React, { useMemo, useState, useEffect, memo, useRef } from "react";
+import React, { useState, useEffect, memo, useRef } from "react";
 import c from './driversSheet.module.css'
+import { connect } from 'react-redux'
+import { selectDriverAction } from "../../store/driverReducer";
 
 
 
 
-const DriversSheet = memo(({ drivers, listDrivers, setDriverListSort, selectDriverAction }) => {
+const mapStateToProps = (state) => {
+    return {
+        listForSheet: state.drivers.listForSheet,
+    }
+}
+
+
+const DriversSheet = memo(({ listForSheet, selectDriverAction }) => {
 
     const rootRef = useRef();
     const [start, setStart] = useState(0);
     const [nameSort, setNameSort] = useState(true);
     const [statusSort, setStatusSort] = useState(true);
     const [numberSort, setNumberSort] = useState(true);
+
+    const [sortedList, setSortedList] = useState(listForSheet);
 
     const clickHandler = (e) => {
         selectDriverAction(e);
@@ -19,7 +30,7 @@ const DriversSheet = memo(({ drivers, listDrivers, setDriverListSort, selectDriv
     const onSort = (field) => {
         if (field) {
             if (field.target.outerText === "Имя") {
-                listDrivers.sort((prev, next) => {
+                listForSheet.sort((prev, next) => {
                     if (nameSort) {
                         if (prev.fullname < next.fullname) return -1;
                         if (prev.fullname < next.fullname) return 1;
@@ -32,7 +43,7 @@ const DriversSheet = memo(({ drivers, listDrivers, setDriverListSort, selectDriv
                 setNameSort(!nameSort)
             }
             if (field.target.outerText === "Статус") {
-                listDrivers.sort((prev, next) => {
+                listForSheet.sort((prev, next) => {
                     if (statusSort) {
                         if (prev.activeStatus < next.activeStatus) return -1;
                         if (prev.activeStatus < next.activeStatus) return 1;
@@ -45,7 +56,7 @@ const DriversSheet = memo(({ drivers, listDrivers, setDriverListSort, selectDriv
                 setStatusSort(!statusSort)
             }
             if (field.target.outerText === "Номер") {
-                listDrivers.sort((prev, next) => {
+                listForSheet.sort((prev, next) => {
                     if (numberSort) {
                         if (prev.id < next.id) return -1;
                         if (prev.id < next.id) return 1;
@@ -57,7 +68,7 @@ const DriversSheet = memo(({ drivers, listDrivers, setDriverListSort, selectDriv
                 });
                 setNumberSort(!numberSort);
             }
-            setDriverListSort(listDrivers);
+            setSortedList(listForSheet);
         }
         return
 
@@ -71,7 +82,7 @@ const DriversSheet = memo(({ drivers, listDrivers, setDriverListSort, selectDriv
     }
 
     const getBottomHeight = () => {
-        return rowHeight * (Object.keys(drivers).length - (start + visibleRows))
+        return rowHeight * (Object.keys(listForSheet).length - (start + visibleRows))
     }
 
     const onScroll = (e) => {
@@ -84,8 +95,10 @@ const DriversSheet = memo(({ drivers, listDrivers, setDriverListSort, selectDriv
         return () => {
             rootRef.current.removeEventListener('scroll', onScroll);
         }
-    }, [])
-    
+    }, [listForSheet])
+
+    console.log("Render Driver Sheet");
+
     return (
         <>
             <div id={c.title}>
@@ -106,8 +119,8 @@ const DriversSheet = memo(({ drivers, listDrivers, setDriverListSort, selectDriv
                     }} ref={rootRef}>
                         <div style={{ height: getTopHeight() }} />
                         <tbody>
-                            {listDrivers.slice(start, start + visibleRows).map((item, index) => (
-                                <tr key={item.driverId} onClick={()=>{clickHandler(item.driverId)}}>
+                            {listForSheet.slice(start, start + visibleRows).map((item, index) => (
+                                <tr key={item.driverId} onClick={() => { clickHandler(item.driverId) }}>
                                     <td>{item.id < 10 ? '0' + item.id : item.id}</td>
                                     <td>{item.fullname}</td>
                                     <td id={!item.activeStatus ? `${c.status__bisy}` : `${c.status__free}`}>{!item.activeStatus ? "Занят" : "Свободен"}</td>
@@ -123,4 +136,4 @@ const DriversSheet = memo(({ drivers, listDrivers, setDriverListSort, selectDriv
 })
 
 
-export default DriversSheet;
+export default connect(mapStateToProps, { selectDriverAction })(DriversSheet);

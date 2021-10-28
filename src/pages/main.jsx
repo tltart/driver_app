@@ -4,25 +4,18 @@ import StatisticCard from "../component/statisticCard/statisticCard";
 import MapComponent from "../component/map/map";
 import { connect } from 'react-redux'
 import { getUsersSelector } from '../store/selectors/usersSelector';
-import { getDrivers } from '../store/selectors/driversSelector';
 import DriversSheet from "../component/driversSheet/driversSheet";
 import DriverCard from "../component/driverCard/driverCard";
-import { getCoordinates } from '../store/selectors/coordinatsSelector';
-import { SetCoordinates } from '../store/mapReducer';
-import { setDriverListSort, selectDriverAction, getDriversThunk } from "../store/driverReducer";
 
+import { getDriversThunk } from "../store/driverReducer";
 
 const mapStateToProps = (state) => {
     return {
         users: getUsersSelector(state),
-        drivers: getDrivers(state),
-        listDrivers: state.drivers.listDrivers,
-        coordinates: getCoordinates(state),
-        selectDriver: state.drivers.selectDriver
     }
 }
 
-const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, setDriverListSort, selectDriver, selectDriverAction, getDriversThunk }) => {
+const MainPage = ({ users, getDriversThunk }) => {
 
 
     let [activeUsers, setActiveUsers] = useState();
@@ -37,11 +30,20 @@ const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, se
         setBisyUsers(users.allUsers / 2);
     }, [])
 
-    // console.log(drivers);
-    // setTimeout(() => {
-    //     getDriversThunk();
-    // }, 5000);
+    useEffect(() => {
+        let i = 0;
+        let interval = setInterval(() => {
+            if (i < 11) {
+                getDriversThunk();
+                i++;
+                console.log("waiting for the next call.");
+            }
+            else {
+                clearInterval(interval)
+            }
 
+        }, 5000);
+    }, [])
     console.log("RENDER MAIN");
 
     return (
@@ -52,18 +54,18 @@ const MainPage = ({ users, drivers, SetCoordinates, coordinates, listDrivers, se
                 <StatisticCard statusUser="Занятые" allUsers={bisyUsers} />
             </div>
             <div className={c.wrap__map}>
-                <MapComponent drivers={drivers} coordinates={coordinates} setCoordinates={SetCoordinates} selectDriverAction={selectDriverAction}/>
+                <MapComponent />
             </div>
             <div className={c.footer__wrap}>
                 <div className={c.wrap__drivers__items}>
-                    <DriversSheet drivers={drivers} listDrivers={listDrivers} setDriverListSort={setDriverListSort} selectDriverAction={selectDriverAction}/>
+                    <DriversSheet />
                 </div>
                 <div className={c.wrap__driver__item}>
-                    <DriverCard selectDriver={selectDriver} />
+                    <DriverCard />
                 </div>
             </div>
         </div>
     )
 }
 
-export default connect(mapStateToProps, { SetCoordinates, setDriverListSort, selectDriverAction, getDriversThunk })(MainPage);
+export default connect(mapStateToProps, {getDriversThunk})(MainPage);

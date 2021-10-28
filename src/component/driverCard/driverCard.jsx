@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import c from './driverCard.module.css'
+import { connect } from 'react-redux'
+import { selectDriverAction } from "../../store/driverReducer";
+
+const mapStateToProps = (state) => {
+    return {
+        selectDriver: state.drivers.selectDriver,
+        listForSheet: state.drivers.listForSheet
+    }
+}
 
 
-const DriverCard = ({ selectDriver }) => {
-    
+const DriverCard = ({ selectDriver, listForSheet, selectDriverAction }) => {
+
+
+    useEffect(() => {
+        if (selectDriver) {
+            selectDriverAction(selectDriver.driverID)
+        }
+    }, [listForSheet])
+
     return (
         <div className={c.wrap__card}>
             {selectDriver ?
@@ -50,4 +66,4 @@ const DriverCard = ({ selectDriver }) => {
     )
 }
 
-export default DriverCard;
+export default connect(mapStateToProps, { selectDriverAction })(DriverCard);

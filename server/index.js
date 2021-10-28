@@ -186,7 +186,7 @@ const mass = [
         passport: "",
         phoneNumber: "+79880126375",
         rating: 3.64,
-        ridesNum: 18,
+        ridesNum: 78,
         taxiLicense: "http://77.223.97.105:1337/api/driver/image/image-479208395.jpg",
         taxiLicenseText: "",
         ide: 6
@@ -218,7 +218,7 @@ const mass = [
         passport: "",
         phoneNumber: "+79880100005",
         rating: 5,
-        ridesNum: 18,
+        ridesNum: 13,
         taxiLicense: "http://77.223.97.105:1337/api/driver/image/image-479208395.jpg",
         taxiLicenseText: "",
         ide: 7
@@ -250,17 +250,33 @@ const mass = [
         passport: "",
         phoneNumber: "+796660005",
         rating: 3,
-        ridesNum: 18,
+        ridesNum: 15,
         taxiLicense: "http://77.223.97.105:1337/api/driver/image/image-479208395.jpg",
         taxiLicenseText: "",
         ide: 8
     }
 ]
 
-app.get('/', (req, res)=>{
-    res.json(mass);
+let po = 0.05;
+let mass2 = []
+setInterval(() => {
+    if (!po) {
+        // po = 0.000001
+        mass2 = [...mass, { ...mass[7].currentLocationLatitude = parseFloat(mass[7].currentLocationLatitude) + po }, { ...mass[7].currentLocationLongitude = parseFloat(mass[7].currentLocationLongitude) + po }]
+    }
+    else {
+        // po = po + 0.000001
+        mass2 = [...mass, { ...mass[7].currentLocationLatitude = parseFloat(mass[7].currentLocationLatitude) + po }, { ...mass[7].currentLocationLongitude = parseFloat(mass[7].currentLocationLongitude) + po }]
+    }
+
+    mass2 = mass2.slice(0, 8);
+    console.log(mass2);
+}, 3000)
+
+app.get('/', (req, res) => {
+    res.json(mass2);
 });
 
-app.listen(5000, ()=>{
+app.listen(5000, () => {
     console.log("Сервер шарашит на порту 5000");
 });

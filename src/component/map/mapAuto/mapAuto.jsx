@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import c from './mapAuto.module.css';
+import { connect } from 'react-redux'
+import { SetCoordinates } from '../../../store/mapReducer'
 import searchIcon from '../../../assets/icons/search.svg'
 import PlacesAutocomplete, {
     geocodeByAddress,
@@ -8,28 +10,32 @@ import PlacesAutocomplete, {
 
 
 
-const MapAuto = ({ setCoordinates }) => {
+const MapAuto = ({ SetCoordinates, selectDriver }) => {
 
     const [address, setAddress] = React.useState("");
-    // const [coordinates, setCoordinates] = React.useState({
-    //     lat: null,
-    //     lng: null
-    // });
 
     const handleSelect = async value => {
         try {
             const results = await geocodeByAddress(value);
             const latLng = await getLatLng(results[0]);
             setAddress(value);
-            setCoordinates(latLng);
+            SetCoordinates(latLng);
         }
-        catch (e){
+        catch (e) {
             console.log("Не выбран оъект!");
         }
-        
     };
 
-    
+    useEffect(() => {
+        try {
+            SetCoordinates({ lat: selectDriver.currentLocationLatitude, lng: selectDriver.currentLocationLongitude });
+        }
+        catch (e){
+            console.log("Blanked...........");
+        }
+
+    }, [selectDriver])
+
 
     return (
         <div>
@@ -73,4 +79,4 @@ const MapAuto = ({ setCoordinates }) => {
 }
 
 
-export default MapAuto;
+export default connect(null, { SetCoordinates })(MapAuto);

@@ -3,7 +3,8 @@ import { GetDriverFromServer } from '../http/driverApi'
 const SET_DRIVERS_TO_STORE = "SET_DRIVERS_TO_STORE";
 const INIT_DRIVERS_LIST = "INIT_DRIVERS_LIST";
 const SELECT_DRIVER = "SELECT_DRIVER";
-const SORT_DRIVERS_LIST = "SORT_DRIVERS_LIST"
+const LIST_FOR_SHEET = "LIST_FOR_SHEET";
+const LIST_FOR_MAP = "LIST_FOR_MAP"
 
 const _ = require('lodash');
 
@@ -254,46 +255,90 @@ let initialState = {
         //     passport: "",
         //     phoneNumber: "+796660005",
         //     rating: 3,
-        //     ridesNum: 18,
+        //     ridesNum: 11,
         //     taxiLicense: "http://77.223.97.105:1337/api/driver/image/image-479208395.jpg",
         //     taxiLicenseText: "",
         //     ide: 8
         // }
     ],
     listDrivers: [],
-    selectDriver: null
-
+    selectDriver: null,
+    listForSheet: [],
+    listForMap: []
 }
 
-
+const objectsEqual = (o1, o2) =>
+    typeof o1 === 'object' && Object.keys(o1).length > 0
+        ? Object.keys(o1).length === Object.keys(o2).length
+        && Object.keys(o1).every(p => objectsEqual(o1[p], o2[p]))
+        : o1 === o2;
+const arraysEqual = (a1, a2) => a1.length === a2.length && a1.every((o, idx) => objectsEqual(o, a2[idx]));
 
 const driverReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case SET_DRIVERS_TO_STORE:
             if (!state.drivers.length) {
-                console.log("Установка водителей в стейт");
-                return { ...state, drivers: [...state.drivers, ...action.payload] }
+                console.log("Установка полного списка водителей в стейт");
+                return { ...state, drivers: [...action.payload] }
+            }
+            if (!arraysEqual(state.drivers, action.payload)) {
+                return { ...state, drivers: [...action.payload] }
             }
             return state
+
         case INIT_DRIVERS_LIST:
-            console.log("Инит редуссер листа водителей");
+            console.log("Упрощенный лист водителей");
             let vv = state.drivers.map(item => ({
-                    fullname: item.fullName,
-                    activeStatus: item.activeStatus,
-                    id: item.ide,
-                    driverId: item.driverID,
-                    currentLocationLatitude: item.currentLocationLatitude,
-                    currentLocationLongitude: item.currentLocationLongitude
-                }))            
+                fullname: item.fullName,
+                activeStatus: item.activeStatus,
+                carNumber: item.carNumber,
+                id: item.ridesNum,
+                driverId: item.driverID,
+                currentLocationLatitude: item.currentLocationLatitude,
+                currentLocationLongitude: item.currentLocationLongitude
+            }))
             return { ...state, listDrivers: [...vv] }
-        
-        case SORT_DRIVERS_LIST:
-            console.log("Сортировка водителей");
-            return { ...state, listDrivers: [...action.payload]}
+
         case SELECT_DRIVER:
-            console.log("Select Driver reducer");
             return { ...state, selectDriver: [...state.drivers.filter(item => item.driverID == action.payload)][0] }
+
+        case LIST_FOR_SHEET:
+            let xx = state.listDrivers.map(item => ({
+                fullname: item.fullname,
+                activeStatus: item.activeStatus,
+                id: item.id,
+                driverId: item.driverId,
+            }))
+            if (!state.listForSheet.length) {
+                return { ...state, listForSheet: [...xx] }
+            }
+            else {
+                if (!arraysEqual(xx, state.listForSheet)) {
+                    return { ...state, listForSheet: [...xx] }
+                }
+            }
+            return state;
+        
+        case LIST_FOR_MAP:
+            let bb = state.listDrivers.map(item => ({
+                fullname: item.fullname,
+                activeStatus: item.activeStatus,
+                carNumber: item.carNumber,
+                id: item.id,
+                driverId: item.driverId,
+                currentLocationLatitude: item.currentLocationLatitude,
+                currentLocationLongitude: item.currentLocationLongitude
+            }))
+            if (!state.listForMap.length) {
+                return { ...state, listForMap: [...bb] }
+            }
+            else {
+                if (!arraysEqual(bb, state.listForMap)) {
+                    return { ...state, listForMap: [...bb] }
+                }
+            }
+            return state;
 
         default:
             return state;
@@ -303,8 +348,12 @@ const driverReducer = (state = initialState, action) => {
 
 
 const setDriversToStore = (item) => ({ type: SET_DRIVERS_TO_STORE, payload: item })
-export const setDriverList = () => ({ type: INIT_DRIVERS_LIST});
-export const setDriverListSort = (item) => ({ type: SORT_DRIVERS_LIST, payload: item});
+const setListForSheet = () => ({ type: LIST_FOR_SHEET })
+const setListForMap = () => ({ type: LIST_FOR_MAP })
+
+export const setDriverList = () => ({ type: INIT_DRIVERS_LIST });
+
+
 export const selectDriverAction = (item) => ({ type: SELECT_DRIVER, payload: item });
 
 
@@ -315,8 +364,8 @@ export const getDriversThunk = () => {
         GetDriverFromServer().then((response) => {
             dispatch(setDriversToStore(response.data));
             dispatch(setDriverList());
-            
-            
+            dispatch(setListForSheet());
+            dispatch(setListForMap());
         });
     }
 }

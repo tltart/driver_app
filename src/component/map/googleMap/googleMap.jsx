@@ -5,9 +5,10 @@ import UseSupercluster from 'use-supercluster'
 import c from './googleMap.module.css'
 
 
+
 const Marker = ({ children }) => children;
 
-const GoogleMap = ({ drivers, coordinates, selectDriverAction }) => {
+const GoogleMap = ({ listForMap, coordinates, selectDriverAction }) => {
 
     const mapRef = useRef();
     const [zoom, setZoom] = useState(10);
@@ -18,16 +19,16 @@ const GoogleMap = ({ drivers, coordinates, selectDriverAction }) => {
         selectDriverAction(driverId);
     }
 
-    const points = drivers.map(item => ({
+    const points = listForMap.map(item => ({
         "type": "Feature",
         "properties": {
             "cluster": false,
-            "eventTitle": item.fullName,
-            "driverId": item.driverID
+            "eventTitle": item.carNumber,
+            "driverId": item.driverId,
+            "status": item.activeStatus
         },
         "geometry": { "type": "Point", "coordinates": [item.currentLocationLongitude, item.currentLocationLatitude] }
     }))
-
 
     const { clusters, supercluster } = UseSupercluster({
         points,
@@ -38,25 +39,31 @@ const GoogleMap = ({ drivers, coordinates, selectDriverAction }) => {
 
 
     useEffect(() => {
-        if (drivers[0]) {
-            setCent({
-                defaultZoom: 9,
-                defaultCenter: { lat: drivers[0].currentLocationLatitude, lng: drivers[0].currentLocationLongitude },
-                options: {
-                    maxZoom: 19,
-                },
-            })
+        try {
+            if (listForMap[0]) {
+                setCent({
+                    defaultZoom: 9,
+                    defaultCenter: { lat: listForMap[0].currentLocationLatitude, lng: listForMap[0].currentLocationLongitude },
+                    options: {
+                        maxZoom: 20,
+                    },
+                })
+            }
         }
-    }, [drivers])
+        catch (e){
+            console.log("No data");
+        }
+    }, [listForMap])
 
     useEffect(() => {
         if (Object.values(coordinates).length) {
             mapRef.current.panTo({ lat: coordinates.lat, lng: coordinates.lng });
-            mapRef.current.setZoom(10);
+            mapRef.current.setZoom(12);
         }
     }, [coordinates])
 
 
+    console.log("Render Google MAP");
 
     return (
         <>
@@ -112,7 +119,7 @@ const GoogleMap = ({ drivers, coordinates, selectDriverAction }) => {
                         }
                         return (
                             <LocationMarker key={index} phone={cluster.properties.eventTitle} lng={longitude} lat={latitude}
-                                selectDriverAction={() => { clickHandlerMarker(cluster.properties.driverId) }} />
+                                selectDriverSet={() => { clickHandlerMarker(cluster.properties.driverId) }} status={cluster.properties.status} />
                         )
                     })}
 

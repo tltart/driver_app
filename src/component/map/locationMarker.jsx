@@ -1,10 +1,10 @@
 import React from 'react';
 import c from './locationMarker.module.css'
 
-const LocationMarker = ({ phone, selectDriverAction }) => {
+const LocationMarker = ({ phone, selectDriverSet, status }) => {
 
     return (
-        <div className={c.wrap__marker} onClick={selectDriverAction}>
+        <div className={status ? `${c.wrap__marker}` : `${c.wrap__marker} ${c.bisy}`} onClick={selectDriverSet}>
             <h4>{phone}</h4>
         </div>
     );
