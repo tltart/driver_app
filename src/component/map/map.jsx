@@ -18,7 +18,7 @@ const mapStateToProps = (state) => {
 const MapComponent = ({ listForMap, coordinates, setCoordinates, selectDriverAction, selectDriver }) => {
 
 
-    console.log("Render Map Wrapper");
+    // console.log("Render Map Wrapper");
 
     return (
         <div className={c.wrap}>

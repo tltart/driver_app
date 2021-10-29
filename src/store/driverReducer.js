@@ -279,7 +279,7 @@ const driverReducer = (state = initialState, action) => {
 
         case SET_DRIVERS_TO_STORE:
             if (!state.drivers.length) {
-                console.log("Установка полного списка водителей в стейт");
+                // console.log("Установка полного списка водителей в стейт");
                 return { ...state, drivers: [...action.payload] }
             }
             if (!arraysEqual(state.drivers, action.payload)) {
@@ -288,7 +288,7 @@ const driverReducer = (state = initialState, action) => {
             return state
 
         case INIT_DRIVERS_LIST:
-            console.log("Упрощенный лист водителей");
+            // console.log("Упрощенный лист водителей");
             let vv = state.drivers.map(item => ({
                 fullname: item.fullName,
                 activeStatus: item.activeStatus,
@@ -358,7 +358,7 @@ export const selectDriverAction = (item) => ({ type: SELECT_DRIVER, payload: ite
 
 
 export const getDriversThunk = () => {
-    console.log("Запрос на сервер");
+    // console.log("Запрос на сервер Водителей");
     return (dispatch) => {
 
         GetDriverFromServer().then((response) => {

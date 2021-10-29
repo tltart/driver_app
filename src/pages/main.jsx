@@ -8,6 +8,7 @@ import DriversSheet from "../component/driversSheet/driversSheet";
 import DriverCard from "../component/driverCard/driverCard";
 
 import { getDriversThunk } from "../store/driverReducer";
+import { getUsersThunk } from "../store/userReducer"
 
 const mapStateToProps = (state) => {
     return {
@@ -15,43 +16,32 @@ const mapStateToProps = (state) => {
     }
 }
 
-const MainPage = ({ users, getDriversThunk }) => {
+const MainPage = ({ users, getDriversThunk, getUsersThunk }) => {
 
-
-    let [activeUsers, setActiveUsers] = useState();
-    let [allUsers, setAllUsers] = useState();
-    let [freeUsers, setFreeUsers] = useState();
-    let [bisyUsers, setBisyUsers] = useState();
-
-    useEffect(() => {
-        setActiveUsers(users.active.length);
-        setAllUsers(users.allUsers);
-        setFreeUsers(users.allUsers / 2);
-        setBisyUsers(users.allUsers / 2);
-    }, [])
+    // console.log(users);
 
     useEffect(() => {
         let i = 0;
         let interval = setInterval(() => {
             if (i < 11) {
                 getDriversThunk();
-                i++;
-                console.log("waiting for the next call.");
+                getUsersThunk();
             }
             else {
                 clearInterval(interval)
             }
 
         }, 5000);
-    }, [])
-    console.log("RENDER MAIN");
+    }, []);
+    
+    // console.log("RENDER MAIN");
 
     return (
         <div className={c.wrap}>
             <div className={c.wrap__statistic}>
-                <StatisticCard activeUsers={activeUsers} allUsers={allUsers} statusUser="Активные пользователи" />
-                <StatisticCard statusUser="Свободные" allUsers={freeUsers} />
-                <StatisticCard statusUser="Занятые" allUsers={bisyUsers} />
+                <StatisticCard activeUsers={users.activeUsers} allUsers={users.allUsers} statusUser="Активные пользователи" />
+                <StatisticCard statusUser="Свободные" allUsers={users.allUsers} activeUsers={users.activeUsers} />
+                <StatisticCard statusUser="Занятые" allUsers={users.allUsers} deactiveUsers={users.deactiveUsers} />
             </div>
             <div className={c.wrap__map}>
                 <MapComponent />
@@ -68,4 +58,4 @@ const MainPage = ({ users, getDriversThunk }) => {
     )
 }
 
-export default connect(mapStateToProps, {getDriversThunk})(MainPage);
+export default connect(mapStateToProps, { getDriversThunk, getUsersThunk })(MainPage);

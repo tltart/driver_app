@@ -63,7 +63,7 @@ const GoogleMap = ({ listForMap, coordinates, selectDriverAction }) => {
     }, [coordinates])
 
 
-    console.log("Render Google MAP");
+    // console.log("Render Google MAP");
 
     return (
         <>

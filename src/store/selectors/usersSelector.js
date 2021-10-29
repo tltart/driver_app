@@ -1,13 +1,15 @@
 import { createSelector } from 'reselect'
 
 const getUsers = (state) => {
-    return state.users.users
+    return state.users.usersEqual
 }
 
 export const getUsersSelector = createSelector(getUsers, (users) => {
 
     let active = [];
     let allUsers = 0;
+    let deactiveUsers = 0;
+    let activeUsers = 0;
 
     users.map(item => {
         for (let key in item) {
@@ -21,6 +23,9 @@ export const getUsersSelector = createSelector(getUsers, (users) => {
         }
     })
 
-    return ({ active, allUsers })
+    deactiveUsers = allUsers - active.length;
+    activeUsers = active.length
+
+    return ({ active, allUsers, deactiveUsers, activeUsers })
 })
 
