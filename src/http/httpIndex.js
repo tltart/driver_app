@@ -9,11 +9,11 @@ import axios from 'axios';
 // })
 
 
-axios.defaults.baseURL = 'http://3.70.15.241:5000';
+axios.defaults.baseURL = 'http://127.0.0.1:5000';
 
 
 const host = axios.create({
-    baseUrl: 'http://3.70.15.241:5000'
+    baseUrl: 'http://127.0.0.1:5000'
 })
 
 export {

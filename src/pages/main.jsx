@@ -31,7 +31,7 @@ const MainPage = ({ users, getDriversThunk, getUsersThunk }) => {
                 clearInterval(interval)
             }
 
-        }, 1000);
+        }, 20000);
     }, []);
     
     // console.log("RENDER MAIN");

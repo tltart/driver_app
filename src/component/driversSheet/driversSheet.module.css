@@ -23,7 +23,7 @@ html *::-webkit-scrollbar-thumb {
 
 #title{
     /* border: 2px solid blue; */
-    width: 570px;
+    width: 90%;
     margin: auto;
 }
 #title h2{
@@ -33,7 +33,7 @@ html *::-webkit-scrollbar-thumb {
 }
 .wrap__table {
     /* border: 2px solid red; */
-    width: 570px;
+    width: 90%;
     display: block;
     /* margin-bottom: 0; */
     margin: auto;
@@ -83,7 +83,7 @@ table thead {
     display: flex;
     /* flex-wrap: wrap; */
     /* border: 2px solid green; */
-    width: 100%;
+    width: 95%;
 }
 
 th {

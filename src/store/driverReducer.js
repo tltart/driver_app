@@ -6,8 +6,6 @@ const SELECT_DRIVER = "SELECT_DRIVER";
 const LIST_FOR_SHEET = "LIST_FOR_SHEET";
 const LIST_FOR_MAP = "LIST_FOR_MAP"
 
-const _ = require('lodash');
-
 let initialState = {
 
     drivers: [
