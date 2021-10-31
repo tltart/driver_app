@@ -97,7 +97,8 @@ const DriversSheet = memo(({ listForSheet, selectDriverAction }) => {
         }
     }, [listForSheet])
 
-    // console.log("Render Driver Sheet");
+    
+    console.log("DRIVER SHEET");
 
     return (
         <>

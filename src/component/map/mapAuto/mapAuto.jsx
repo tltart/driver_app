@@ -10,7 +10,7 @@ import PlacesAutocomplete, {
 
 
 
-const MapAuto = ({ SetCoordinates, selectDriver }) => {
+const MapAuto = React.memo(({ SetCoordinates, selectDriver }) => {
 
     const [address, setAddress] = React.useState("");
 
@@ -36,6 +36,8 @@ const MapAuto = ({ SetCoordinates, selectDriver }) => {
 
     }, [selectDriver])
 
+
+    console.log("PLACE AUTO");
 
     return (
         <div>
@@ -76,7 +78,7 @@ const MapAuto = ({ SetCoordinates, selectDriver }) => {
         </div>
     )
 
-}
+})
 
 
 export default connect(null, { SetCoordinates })(MapAuto);

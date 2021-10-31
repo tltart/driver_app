@@ -3,6 +3,10 @@ import c from './statisticCard.module.css'
 import userimg from '../../assets/icons/user.svg'
 
 const StatisticCard = ({ activeUsers, allUsers, statusUser, deactiveUsers }) => {
+
+
+    console.log("user CARD");
+
     return (
         <div className={c.wrap}>
             <div className={c.wrap__users}>

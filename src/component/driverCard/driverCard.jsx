@@ -19,6 +19,8 @@ const DriverCard = ({ selectDriver, listForSheet, selectDriverAction }) => {
         }
     }, [listForSheet])
 
+    console.log("DRIVER CARD");
+
     return (
         <div className={c.wrap__card}>
             {selectDriver ?

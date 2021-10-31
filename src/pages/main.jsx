@@ -18,7 +18,6 @@ const mapStateToProps = (state) => {
 
 const MainPage = ({ users, getDriversThunk, getUsersThunk }) => {
 
-    // console.log(users);
 
     useEffect(() => {
         let i = 0;
@@ -31,10 +30,10 @@ const MainPage = ({ users, getDriversThunk, getUsersThunk }) => {
                 clearInterval(interval)
             }
 
-        }, 20000);
+        }, 10000);
     }, []);
     
-    // console.log("RENDER MAIN");
+    console.log("RENDER MAIN");
 
     return (
         <div className={c.wrap}>
