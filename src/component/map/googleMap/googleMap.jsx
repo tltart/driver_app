@@ -69,7 +69,7 @@ const GoogleMap = ({ listForMap, coordinates, selectDriverAction }) => {
         <>
             {cent.defaultCenter ?
                 <GoogleMapReact
-                    bootstrapURLKeys={{ key: 'AIzaSyCBZ9Rzj5yPg2w9iBuOwNCPg0WsEKLuewk' }}
+                    bootstrapURLKeys={{ key: 'AIzaSyCBZ9Rzj5yPg2w9iBuOwNCPg0WsEKLuew' }}
                     center={cent.defaultCenter}
                     zoom={cent.defaultZoom}
                     yesIWantToUseGoogleMapApiInternals
